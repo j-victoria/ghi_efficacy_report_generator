@@ -24,7 +24,7 @@ def list_gen (drug_name, disease_name)
     base_oa = "https://www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi"
     
     query = to_uri_able(drug_name) +  $and_uri  + to_uri_able(disease_name) + $and_uri  + $efficacy + $fields + $and_uri + URI::encode($country_names[1]) + $fields
-    doc = Nokogiri::XML(open(base_etools + "esearch.fcgi?db=" + pmc + "&term=" + query +"&retmax=50"))
+    doc = Nokogiri::XML(open(URI::encode(base_etools + "esearch.fcgi?db=" + pmc + "&term=" + query +"&retmax=50")))
     #print doc
     ids = doc.xpath("//Id").to_s.split(/<\/?Id>/).uniq
     ids.delete("")
